@@ -1,3 +1,9 @@
 <?php
 
-return [];
+return [
+
+    /**
+     * Enable the permission service
+     */
+    'enabled' => true,
+];
