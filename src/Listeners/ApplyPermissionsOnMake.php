@@ -61,6 +61,22 @@ class ApplyPermissionsOnMake
         if ($path == null) {
             return;
         }
+
+        $this->executeCommand($path);
+    }
+
+    /**
+     * Execute the chmod command
+     * @param  string $path File path
+     * @return void
+     */
+    public function executeCommand(string $path): void
+    {
+        $permission = config('make-file-permissions.permission');
+
+        $command = escapeshellcmd('chmod ' . $permission . ' ' . $path);
+
+        exec($command);
     }
 
     /**
