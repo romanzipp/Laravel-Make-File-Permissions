@@ -48,7 +48,97 @@ class ApplyPermissionsOnMake
             return;
         }
 
-        $class = str_replace('make:', '', $event->command);
+        $type = str_replace('make:', '', $event->command);
+
+        if (!$this->typeShouldBeHandled($type)) {
+            return;
+        }
+
+        $path = $this->generatePath($type);
+
+        if ($path == null) {
+            return;
+        }
+    }
+
+    /**
+     * Determines wether the given type should be processed.
+     * @param  string $type Class type
+     * @return boolean
+     */
+    private function typeShouldBeHandled(string $type): bool
+    {
+        if ($type === 'auth') {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Generate a given class path by type.
+     * @param  string      $type Class type
+     * @return string|null
+     */
+    private function generatePath(string $type)
+    {
+        switch ($type) {
+            case 'migration':
+                return $this->generateMigrationsPath($type);
+
+            case 'test':
+                return $this->generateTestsPath($type);
+
+            default:
+                return $this->generateGeneralPath($type);
+        }
+    }
+
+    /**
+     * Generate general class path.
+     * @param  string      $type  Class type
+     * @param  mixed       $event Incoming event
+     * @return string|null
+     */
+    private function generateGeneralPath(string $type, $event)
+    {
+        $folder = array_get($this->paths, $type);
+
+        if ($folder == null) {
+            return null;
+        }
+
+        $file = $this->filename($event);
+    }
+
+    /**
+     * Generate migration path.
+     * @param  string      $type Class type
+     * @return string|null
+     */
+    private function generateMigrationsPath(string $type)
+    {
+        # code...
+    }
+
+    /**
+     * Generate tests path.
+     * @param  string      $type Class type
+     * @return string|null
+     */
+    private function generateTestsPath(string $type)
+    {
+        # code...
+    }
+
+    /**
+     * Get file system file name.
+     * @param  mixed  $event Incoming event
+     * @return string
+     */
+    private function filename($event): string
+    {
+        return $event->input->getArgument('name') . '.php';
     }
 
     /**

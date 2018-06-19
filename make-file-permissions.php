@@ -5,5 +5,10 @@ return [
     /**
      * Enable the permission service
      */
-    'enabled' => true,
+    'enabled' => env('MAKE_PERMISSIONS_ENABLED', true),
+
+    /**
+     * Appyl the following permission
+     */
+    'permissions' => env('MAKE_PERMISSIONS', '600'),
 ];
