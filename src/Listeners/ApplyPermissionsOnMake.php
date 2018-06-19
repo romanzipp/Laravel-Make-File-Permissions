@@ -2,6 +2,8 @@
 
 namespace romanzipp\MakeFilePermissions\Listeners;
 
+use Illuminate\Support\Facades\Storage;
+
 class ApplyPermissionsOnMake
 {
     /**
@@ -118,17 +120,26 @@ class ApplyPermissionsOnMake
      */
     private function generateMigrationsPath(string $type)
     {
-        # code...
+        $migrationsPath = database_path('migrations');
+
+        $files = Storage::files($migrationsPath);
     }
 
     /**
      * Generate tests path.
-     * @param  string      $type Class type
+     * @param  string      $type  Class type
+     * @param  mixed       $event Incoming event
      * @return string|null
      */
-    private function generateTestsPath(string $type)
+    private function generateTestsPath(string $type, $event)
     {
-        # code...
+        $testsPath = array_get($this->paths, 'feature');
+
+        if ($event->input->getOption('unit')) {
+            $testsPath = array_get($this->paths, 'unit');
+        }
+
+        return $this->filename($testsPath . $event);
     }
 
     /**
