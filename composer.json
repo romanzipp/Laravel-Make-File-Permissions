@@ -1,0 +1,29 @@
+{
+    "name": "romanzipp/laravel-make-file-permissions",
+    "description": "Automatically apply unix file permissions after the 'artisan make:' command",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "romanzipp",
+            "email": "ich@ich.wtf",
+            "homepage": "https://ich.wtf"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "laravel/framework": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "romanzipp\\MakeFilePermissions\\": "/src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "romanzipp\\MakeFilePermissions\\Providers\\MakeFilePermissionsProvider"
+            ]
+        }
+    }
+}
