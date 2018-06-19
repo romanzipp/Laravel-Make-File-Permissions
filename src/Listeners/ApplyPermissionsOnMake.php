@@ -74,6 +74,12 @@ class ApplyPermissionsOnMake
             return false;
         }
 
+        $ignore = (array) config('make-file-permissions.ignore');
+
+        if (in_array($type, $ignore)) {
+            return false;
+        }
+
         return true;
     }
 

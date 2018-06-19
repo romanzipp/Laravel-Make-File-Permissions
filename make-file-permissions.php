@@ -11,4 +11,9 @@ return [
      * Appyl the following permission
      */
     'permissions' => env('MAKE_PERMISSIONS', '600'),
+
+    /**
+     * Ignore commands
+     */
+    'ignore' => [],
 ];
