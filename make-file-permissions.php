@@ -10,7 +10,7 @@ return [
     /**
      * Apply the following permission
      */
-    'permissions' => env('MAKE_PERMISSIONS', '600'),
+    'permission' => env('MAKE_PERMISSIONS', '600'),
 
     /**
      * Ignore commands

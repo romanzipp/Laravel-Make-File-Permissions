@@ -2,8 +2,6 @@
 
 namespace romanzipp\MakeFilePermissions\Listeners;
 
-use Illuminate\Support\Facades\Storage;
-
 class ApplyPermissionsOnMake
 {
     /**
@@ -56,7 +54,7 @@ class ApplyPermissionsOnMake
             return;
         }
 
-        $path = $this->generatePath($type);
+        $path = $this->generatePath($type, $event);
 
         if ($path == null) {
             return;
@@ -104,7 +102,7 @@ class ApplyPermissionsOnMake
      * @param  string      $type Class type
      * @return string|null
      */
-    private function generatePath(string $type)
+    private function generatePath(string $type, $event)
     {
         switch ($type) {
             case 'migration':
@@ -114,7 +112,7 @@ class ApplyPermissionsOnMake
                 return $this->generateTestsPath($type);
 
             default:
-                return $this->generateGeneralPath($type);
+                return $this->generateGeneralPath($type, $event);
         }
     }
 
@@ -133,6 +131,8 @@ class ApplyPermissionsOnMake
         }
 
         $file = $this->filename($event);
+
+        return $folder . $file;
     }
 
     /**
@@ -142,9 +142,13 @@ class ApplyPermissionsOnMake
      */
     private function generateMigrationsPath(string $type)
     {
-        $migrationsPath = database_path('migrations');
+        $migrationsPath = database_path('migrations') . '/*';
 
-        $files = Storage::files($migrationsPath);
+        $files = glob($migrationsPath);
+
+        $last = array_last($files);
+
+        return $last;
     }
 
     /**
