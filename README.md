@@ -35,3 +35,25 @@ Copy configuration to config folder:
 ```
 $ php artisan vendor:publish --provider=romanzipp\MakeFilePermissions\Providers\MakeFilePermissionsProvider
 ```
+
+## Config File
+
+```php
+return [
+
+    /**
+     * Enable the permission service
+     */
+    'enabled' => env('MAKE_PERMISSIONS_ENABLED', true),
+
+    /**
+     * Apply the following permission
+     */
+    'permission' => env('MAKE_PERMISSIONS', '600'),
+
+    /**
+     * Ignore commands
+     */
+    'ignore' => [],
+];
+```
