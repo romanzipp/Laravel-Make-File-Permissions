@@ -14,7 +14,7 @@ class MakeFilePermissionsProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            dirname(__DIR__) . '/../make-file-permissions.php' => config_path('make-file-permissions.php'),
+            dirname(__DIR__) . '/../config/make-file-permissions.php' => config_path('make-file-permissions.php'),
         ], 'config');
     }
 
@@ -25,7 +25,7 @@ class MakeFilePermissionsProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            dirname(__DIR__) . '/../make-file-permissions.php', 'make-file-permissions'
+            dirname(__DIR__) . '/../config/make-file-permissions.php', 'make-file-permissions'
         );
 
         if (config('make-file-permissions.enabled')) {

@@ -33,7 +33,7 @@ Add Service Provider to your app.php configuration file.
 Copy configuration to config folder:
 
 ```
-$ php artisan vendor:publish --provider=romanzipp\MakeFilePermissions\Providers\MakeFilePermissionsProvider
+$ php artisan vendor:publish --provider="romanzipp\MakeFilePermissions\Providers\MakeFilePermissionsProvider"
 ```
 
 ## Config File
