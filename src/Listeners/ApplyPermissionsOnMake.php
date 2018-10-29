@@ -109,7 +109,7 @@ class ApplyPermissionsOnMake
                 return $this->generateMigrationsPath($type);
 
             case 'test':
-                return $this->generateTestsPath($type);
+                return $this->generateTestsPath($type, $event);
 
             default:
                 return $this->generateGeneralPath($type, $event);
