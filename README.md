@@ -1,8 +1,8 @@
 # Laravel Make File Permissions
 
-[![Latest Stable Version](https://poser.pugx.org/romanzipp/laravel-make-file-permissions/version)](https://packagist.org/packages/romanzipp/laravel-make-file-permissions)
-[![Total Downloads](https://poser.pugx.org/romanzipp/laravel-make-file-permissions/downloads)](https://packagist.org/packages/romanzipp/laravel-make-file-permissions)
-[![License](https://poser.pugx.org/romanzipp/laravel-make-file-permissions/license)](https://packagist.org/packages/romanzipp/laravel-make-file-permissions)
+[![Latest Stable Version](https://img.shields.io/packagist/v/romanzipp/laravel-make-file-permissions.svg?style=flat-square)](https://packagist.org/packages/romanzipp/laravel-make-file-permissions)
+[![Total Downloads](https://img.shields.io/packagist/dt/romanzipp/laravel-make-file-permissions.svg?style=flat-square)](https://packagist.org/packages/romanzipp/laravel-make-file-permissions)
+[![License](https://img.shields.io/packagist/l/romanzipp/laravel-make-file-permissions.svg?style=flat-square)](https://packagist.org/packages/romanzipp/laravel-make-file-permissions)
 
 This package automatically applies unix file permissions after the `artisan make:` command.
 
