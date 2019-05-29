@@ -12,15 +12,7 @@ This package automatically applies unix file permissions after the `artisan make
 composer require --dev romanzipp/laravel-make-file-permissions
 ```
 
-Or add `romanzipp/laravel-make-file-permissions` to your `composer.json`
-
-```
-"romanzipp/laravel-make-file-permissions": "*"
-```
-
-Run composer update to pull the latest version.
-
-**If you use Laravel 5.5+ you are already done, otherwise continue:**
+**If you use Laravel 5.5+ you are already done, otherwise continue.**
 
 ```php
 romanzipp\MakeFilePermissions\Providers\MakeFilePermissionsProvider::class,
