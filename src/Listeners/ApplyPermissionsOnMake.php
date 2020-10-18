@@ -5,7 +5,8 @@ namespace romanzipp\MakeFilePermissions\Listeners;
 class ApplyPermissionsOnMake
 {
     /**
-     * Listening paths
+     * Listening paths.
+     *
      * @var array
      */
     protected $paths = [
@@ -35,7 +36,9 @@ class ApplyPermissionsOnMake
 
     /**
      * Handles the incoming event.
-     * @param  mixed $event Incoming event
+     *
+     * @param mixed $event Incoming event
+     *
      * @return void
      */
     public function handle($event): void
@@ -44,19 +47,19 @@ class ApplyPermissionsOnMake
             return;
         }
 
-        if (!$this->validateMakeCommand($event)) {
+        if ( ! $this->validateMakeCommand($event)) {
             return;
         }
 
         $type = str_replace('make:', '', $event->command);
 
-        if (!$this->typeShouldBeHandled($type)) {
+        if ( ! $this->typeShouldBeHandled($type)) {
             return;
         }
 
         $path = $this->generatePath($type, $event);
 
-        if ($path == null) {
+        if (null == $path) {
             return;
         }
 
@@ -64,8 +67,10 @@ class ApplyPermissionsOnMake
     }
 
     /**
-     * Execute the chmod command
-     * @param  string $path File path
+     * Execute the chmod command.
+     *
+     * @param string $path File path
+     *
      * @return void
      */
     public function executeCommand(string $path): void
@@ -79,12 +84,14 @@ class ApplyPermissionsOnMake
 
     /**
      * Determines wether the given type should be processed.
-     * @param  string $type Class type
-     * @return boolean
+     *
+     * @param string $type Class type
+     *
+     * @return bool
      */
     private function typeShouldBeHandled(string $type): bool
     {
-        if ($type === 'auth') {
+        if ('auth' === $type) {
             return false;
         }
 
@@ -99,7 +106,9 @@ class ApplyPermissionsOnMake
 
     /**
      * Generate a given class path by type.
-     * @param  string      $type Class type
+     *
+     * @param string $type Class type
+     *
      * @return string|null
      */
     private function generatePath(string $type, $event)
@@ -118,15 +127,17 @@ class ApplyPermissionsOnMake
 
     /**
      * Generate general class path.
-     * @param  string      $type  Class type
-     * @param  mixed       $event Incoming event
+     *
+     * @param string $type Class type
+     * @param mixed $event Incoming event
+     *
      * @return string|null
      */
     private function generateGeneralPath(string $type, $event)
     {
         $folder = array_get($this->paths, $type);
 
-        if ($folder == null) {
+        if (null == $folder) {
             return null;
         }
 
@@ -137,7 +148,9 @@ class ApplyPermissionsOnMake
 
     /**
      * Generate migration path.
-     * @param  string      $type Class type
+     *
+     * @param string $type Class type
+     *
      * @return string|null
      */
     private function generateMigrationsPath(string $type)
@@ -153,8 +166,10 @@ class ApplyPermissionsOnMake
 
     /**
      * Generate tests path.
-     * @param  string      $type  Class type
-     * @param  mixed       $event Incoming event
+     *
+     * @param string $type Class type
+     * @param mixed $event Incoming event
+     *
      * @return string|null
      */
     private function generateTestsPath(string $type, $event)
@@ -170,7 +185,9 @@ class ApplyPermissionsOnMake
 
     /**
      * Get file system file name.
-     * @param  mixed  $event Incoming event
+     *
+     * @param mixed $event Incoming event
+     *
      * @return string
      */
     private function filename($event): string
@@ -180,8 +197,10 @@ class ApplyPermissionsOnMake
 
     /**
      * Determines if given command is a "make" instruction.
-     * @param  mixed $event Incoming event
-     * @return boolean
+     *
+     * @param mixed $event Incoming event
+     *
+     * @return bool
      */
     private function validateMakeCommand($event): bool
     {
@@ -190,10 +209,11 @@ class ApplyPermissionsOnMake
 
     /**
      * Determines if the app is in production environment.
-     * @return boolean Is production environment
+     *
+     * @return bool Is production environment
      */
     private function isProductionEnvironment(): bool
     {
-        return config('app.env') == 'production';
+        return 'production' == config('app.env');
     }
 }
