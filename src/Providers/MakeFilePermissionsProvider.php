@@ -9,6 +9,7 @@ class MakeFilePermissionsProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
+     *
      * @return void
      */
     public function boot()
@@ -20,6 +21,7 @@ class MakeFilePermissionsProvider extends ServiceProvider
 
     /**
      * Register the application services.
+     *
      * @return void
      */
     public function register()
