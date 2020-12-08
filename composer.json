@@ -29,5 +29,8 @@
                 "romanzipp\\MakeFilePermissions\\Providers\\MakeFilePermissionsProvider"
             ]
         }
+    },
+    "config": {
+        "sort-packages": true
     }
 }
