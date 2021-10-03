@@ -2,12 +2,14 @@
 
 namespace romanzipp\MakeFilePermissions\Listeners;
 
+use Illuminate\Console\Events\CommandFinished;
+
 class ApplyPermissionsOnMake
 {
     /**
      * Listening paths.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $paths = [
         'channel' => 'app/Broadcasting/',
@@ -108,17 +110,18 @@ class ApplyPermissionsOnMake
      * Generate a given class path by type.
      *
      * @param string $type Class type
+     * @param \Illuminate\Console\Events\CommandFinished $event Incoming event
      *
      * @return string|null
      */
-    private function generatePath(string $type, $event)
+    private function generatePath(string $type, CommandFinished $event)
     {
         switch ($type) {
             case 'migration':
-                return $this->generateMigrationsPath($type);
+                return $this->generateMigrationsPath();
 
             case 'test':
-                return $this->generateTestsPath($type, $event);
+                return $this->generateTestsPath($event);
 
             default:
                 return $this->generateGeneralPath($type, $event);
@@ -129,11 +132,11 @@ class ApplyPermissionsOnMake
      * Generate general class path.
      *
      * @param string $type Class type
-     * @param mixed $event Incoming event
+     * @param \Illuminate\Console\Events\CommandFinished $event Incoming event
      *
      * @return string|null
      */
-    private function generateGeneralPath(string $type, $event)
+    private function generateGeneralPath(string $type, CommandFinished $event)
     {
         $folder = array_get($this->paths, $type);
 
@@ -149,11 +152,9 @@ class ApplyPermissionsOnMake
     /**
      * Generate migration path.
      *
-     * @param string $type Class type
-     *
      * @return string|null
      */
-    private function generateMigrationsPath(string $type)
+    private function generateMigrationsPath()
     {
         $migrationsPath = database_path('migrations') . '/*';
 
@@ -167,12 +168,11 @@ class ApplyPermissionsOnMake
     /**
      * Generate tests path.
      *
-     * @param string $type Class type
-     * @param mixed $event Incoming event
+     * @param \Illuminate\Console\Events\CommandFinished $event Incoming event
      *
-     * @return string|null
+     * @return string
      */
-    private function generateTestsPath(string $type, $event)
+    private function generateTestsPath(CommandFinished $event)
     {
         $testsPath = array_get($this->paths, 'feature');
 
@@ -186,11 +186,11 @@ class ApplyPermissionsOnMake
     /**
      * Get file system file name.
      *
-     * @param mixed $event Incoming event
+     * @param \Illuminate\Console\Events\CommandFinished $event Incoming event
      *
      * @return string
      */
-    private function filename($event): string
+    private function filename(CommandFinished $event): string
     {
         return $event->input->getArgument('name') . '.php';
     }
@@ -198,11 +198,11 @@ class ApplyPermissionsOnMake
     /**
      * Determines if given command is a "make" instruction.
      *
-     * @param mixed $event Incoming event
+     * @param \Illuminate\Console\Events\CommandFinished $event Incoming event
      *
      * @return bool
      */
-    private function validateMakeCommand($event): bool
+    private function validateMakeCommand(CommandFinished $event): bool
     {
         return str_contains($event->command, 'make:');
     }
@@ -214,6 +214,6 @@ class ApplyPermissionsOnMake
      */
     private function isProductionEnvironment(): bool
     {
-        return 'production' == config('app.env');
+        return 'production' === config('app.env');
     }
 }
