@@ -3,6 +3,7 @@
 namespace romanzipp\MakeFilePermissions\Listeners;
 
 use Illuminate\Console\Events\CommandFinished;
+use Illuminate\Support\Arr;
 
 class ApplyPermissionsOnMake
 {
@@ -138,7 +139,7 @@ class ApplyPermissionsOnMake
      */
     private function generateGeneralPath(string $type, CommandFinished $event)
     {
-        $folder = array_get($this->paths, $type);
+        $folder = Arr::get($this->paths, $type);
 
         if (null == $folder) {
             return null;
@@ -160,7 +161,7 @@ class ApplyPermissionsOnMake
 
         $files = glob($migrationsPath);
 
-        $last = array_last($files);
+        $last = Arr::last($files);
 
         return $last;
     }
@@ -174,13 +175,13 @@ class ApplyPermissionsOnMake
      */
     private function generateTestsPath(CommandFinished $event)
     {
-        $testsPath = array_get($this->paths, 'feature');
+        $testsPath = Arr::get($this->paths, 'feature');
 
         if ($event->input->getOption('unit')) {
-            $testsPath = array_get($this->paths, 'unit');
+            $testsPath = Arr::get($this->paths, 'unit');
         }
 
-        return $this->filename($testsPath . $event);
+        return $testsPath . $this->filename($event);
     }
 
     /**
